@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	log "github.com/ayuxdev/logger"
 	"gopkg.in/yaml.v3"
 )
 
@@ -12,7 +13,7 @@ func LoadConfig(path string) (*Config, error) {
 	if err != nil && !os.IsNotExist(err) {
 		return nil, fmt.Errorf("failed to check if config file exists: %v", err)
 	} else if os.IsNotExist(err) {
-		// TODO: log.infof("Config file not found, creating default config at %s", path)
+		log.Infof("config file not found. creating default at %s", path)
 		// if config file doesn't exist we create a default config and return it
 		if err := saveDefaultConfig(path); err != nil {
 			return nil, fmt.Errorf("failed to create default config: %v", err)
